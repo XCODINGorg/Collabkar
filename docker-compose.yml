@@ -14,8 +14,8 @@ services:
       dockerfile: frontend/Dockerfile
     environment:
       - NEXT_PUBLIC_BACKEND_URL=http://localhost:4001
+      - PORT=3000
     ports:
       - "3000:3000"
     depends_on:
       - backend
-

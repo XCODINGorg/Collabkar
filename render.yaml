@@ -1,0 +1,37 @@
+services:
+  - type: web
+    name: collabkar-backend
+    runtime: docker
+    plan: free
+    dockerfilePath: backend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /health
+    envVars:
+      - key: AUTH_JWT_SECRET
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
+      - key: AUTH_USERS_FILE_PATH
+        value: /app/backend/data/users.json
+      - key: WAITLIST_FILE_PATH
+        value: /app/backend/data/waitlist-emails.csv
+      - key: WAITLIST_WEBHOOK_URL
+        sync: false
+    disk:
+      name: data
+      mountPath: /app/backend/data
+      sizeGB: 1
+
+  - type: web
+    name: collabkar-frontend
+    runtime: docker
+    plan: free
+    dockerfilePath: frontend/Dockerfile
+    dockerContext: .
+    healthCheckPath: /
+    envVars:
+      - key: NEXT_PUBLIC_BACKEND_URL
+        sync: false
+      - key: NEXT_TELEMETRY_DISABLED
+        value: "1"
+

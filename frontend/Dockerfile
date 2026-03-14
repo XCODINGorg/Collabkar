@@ -11,5 +11,6 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 EXPOSE 3000
 
-CMD ["npm", "run", "dev", "--", "-p", "3000"]
+RUN npm run build
 
+CMD ["sh", "-c", "npm run start -- -p ${PORT:-3000}"]

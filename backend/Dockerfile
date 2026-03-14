@@ -7,8 +7,6 @@ RUN npm ci
 
 COPY backend/ ./
 
-ENV PORT=4001
-EXPOSE 4001
+EXPOSE 10000
 
 CMD ["node", "src/server.js"]
-

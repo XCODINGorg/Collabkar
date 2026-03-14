@@ -67,3 +67,20 @@ Frontend runs on `http://localhost:3000`.
 - User accounts are stored in `backend/data/users.json` for speed of development.
 - For production: move users to a DB, store JWT secret securely, add rate limiting + validation.
 
+## Deploy (Fast)
+
+### Option A: Render (recommended for hackathons)
+
+This repo includes a Render Blueprint: `render.yaml`.
+
+1. Create a new Render Blueprint from this GitHub repo
+2. When prompted, set:
+   - Backend `CORS_ORIGIN` = your frontend URL (e.g. `https://collabkar-frontend.onrender.com`)
+   - Frontend `NEXT_PUBLIC_BACKEND_URL` = your backend URL (e.g. `https://collabkar-backend.onrender.com`)
+3. Deploy
+
+### Option B: Vercel (frontend) + Render/Fly (backend)
+
+- Deploy `frontend/` to Vercel (set Root Directory to `frontend`)
+- Deploy `backend/` to your backend host
+- Set `NEXT_PUBLIC_BACKEND_URL` in Vercel to the backend URL
