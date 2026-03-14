@@ -1,0 +1,21 @@
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    environment:
+      - PORT=4001
+      - CORS_ORIGIN=http://localhost:3000
+    ports:
+      - "4001:4001"
+  frontend:
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    environment:
+      - NEXT_PUBLIC_BACKEND_URL=http://localhost:4001
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+

@@ -1,6 +1,5 @@
 ﻿'use client';
 
-import { Inter } from 'next/font/google';
 import Image from 'next/image';
 import Link from 'next/link';
 import dynamic from 'next/dynamic';
@@ -16,7 +15,6 @@ import {
   type Variants,
 } from 'framer-motion';
 
-const inter = Inter({ subsets: ['latin'] });
 const HeroScene = dynamic(() => import('../components/HeroScene'), {
   ssr: false,
   loading: () => (
@@ -365,7 +363,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className={`${inter.className} min-h-screen bg-[radial-gradient(circle_at_12%_10%,#edf1ff_0%,#f7f7f7_38%,#f6f7fb_100%)] text-[#0B0B0F]`}>
+    <div className="min-h-screen bg-[radial-gradient(circle_at_12%_10%,#edf1ff_0%,#f7f7f7_38%,#f6f7fb_100%)] text-[#0B0B0F]">
       <style jsx global>{`
         @keyframes marquee {
           from {

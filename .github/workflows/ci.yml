@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+      - name: Backend install
+        working-directory: backend
+        run: npm ci
+      - name: Backend smoke import
+        working-directory: backend
+        run: node -e "import('./src/pricing.js').then(m=>console.log(m.suggestPricing({followers:10000,engagement:2,niche:'tech'})))"
+      - name: Frontend install
+        working-directory: frontend
+        run: npm ci
+      - name: Frontend build
+        working-directory: frontend
+        env:
+          NEXT_PUBLIC_BACKEND_URL: http://localhost:4001
+        run: npm run build
+
