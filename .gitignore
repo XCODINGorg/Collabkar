@@ -1,0 +1,20 @@
+**/node_modules/
+**/.next/
+**/.turbo/
+**/dist/
+**/build/
+**/.DS_Store
+
+# local env
+**/.env
+**/.env.local
+**/.env.*.local
+
+# logs
+**/*.log
+frontend/.next-dev.out.log
+frontend/.next-dev.err.log
+
+# misc
+**/data/
+
