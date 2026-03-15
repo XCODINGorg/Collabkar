@@ -59,7 +59,10 @@ interface FaqItem {
 }
 
 interface PricingPlan {
+  label?: string;
   name: string;
+  subtitle?: string;
+  badge?: string;
   price: string;
   period: string;
   features: string[];
@@ -159,44 +162,101 @@ const faqData: FaqItem[] = [
 
 const pricingPlans: PricingPlan[] = [
   {
-    name: 'Creator',
-    price: 'Rs 0',
-    period: '/forever',
+    label: 'Creator - Free',
+    name: 'Starter',
+    subtitle: 'Nano & micro influencers',
+    price: '₹0',
+    period: '/mo',
     features: [
-      'Profile listing',
-      'Deal applications',
-      'Scheduling tools',
-      'AI pricing suggestion',
-      'Escrow protection',
+      'Profile & rate card builder',
+      'Up to 3 active deal proposals',
+      'E-contract generation',
+      'Basic analytics dashboard',
+      '10% platform fee on payments',
     ],
-    cta: 'Join Free',
+    cta: 'Get started',
   },
   {
-    name: 'Brand Starter',
-    price: 'Rs 1,999',
-    period: '/month',
+    label: 'Creator - Pro',
+    badge: 'Most popular',
+    name: 'Growth',
+    subtitle: 'Serious micro creators',
+    price: '₹499',
+    period: '/mo',
     features: [
-      '20 creator searches/month',
-      '3 active campaigns',
-      'AI matching',
-      'Deal dashboard',
-      'Campaign brief builder',
+      'Unlimited active proposals',
+      'Priority brand discovery',
+      'Invoice + GST auto-generation',
+      'Escrow payment protection',
+      'Engagement analytics + rate benchmarks',
+      '8% platform fee on payments',
     ],
-    cta: 'Start Free Trial',
+    cta: 'Upgrade to Pro',
     popular: true,
   },
   {
-    name: 'Brand Growth',
-    price: 'Rs 3,999',
-    period: '/month',
+    label: 'Creator - Elite',
+    name: 'Pro',
+    subtitle: 'Mid-tier & rising creators',
+    price: '₹1,199',
+    period: '/mo',
     features: [
-      'Unlimited searches',
-      'Unlimited campaigns',
-      'Advanced analytics',
-      'Priority matching',
-      'Dedicated support',
+      'Everything in Growth',
+      'Verified creator badge',
+      'Media kit auto-builder',
+      'Multi-platform deal bundling',
+      'Direct brand intro access',
+      '4% platform fee on payments',
     ],
-    cta: 'Contact Us',
+    cta: 'Go Elite',
+  },
+  {
+    label: 'Brand - Starter',
+    name: 'Launch',
+    subtitle: 'D2C startups & small brands',
+    price: '₹2,999',
+    period: '/mo',
+    features: [
+      'Creator discovery with filters',
+      'Campaign brief templates',
+      '5 active campaigns',
+      'Content approval workflow',
+      '8% GMV fee on deals booked',
+    ],
+    cta: 'Start Launch',
+  },
+  {
+    label: 'Brand - Growth',
+    badge: 'Best value',
+    name: 'Scale',
+    subtitle: 'Growing D2C & agencies',
+    price: '₹7,999',
+    period: '/mo',
+    features: [
+      'Up to 30 active campaigns',
+      'Verified creator pool access',
+      'Consolidated reporting dashboard',
+      'Bulk deal management',
+      'Escrow + auto payment rails',
+      '5% GMV fee on deals booked',
+    ],
+    cta: 'Start Scale',
+  },
+  {
+    label: 'Brand - Enterprise',
+    name: 'Agency',
+    subtitle: 'Large brands & agencies',
+    price: 'Custom',
+    period: '',
+    features: [
+      'Unlimited campaigns',
+      'White-label reporting',
+      'API access + integrations',
+      'Custom contract templates',
+      'Dedicated account manager',
+      'Negotiated GMV fee (2-4%)',
+    ],
+    cta: 'Contact sales',
   },
 ];
 
@@ -683,7 +743,7 @@ export default function Home() {
                   'Campaign brief builder - no agency needed',
                   'Track all deals in one dashboard',
                   'Pay securely - funds released only on content delivery',
-                  'Plans from Rs 1,999/month',
+                  'Plans from ₹2,999/mo',
                 ].map((item, i) => (
                   <motion.li key={item} whileHover={{ x: 6 }} className="flex items-start gap-3 transition-colors duration-300 group-hover:text-[#1F2B55]">
                     <motion.span className="mt-1 h-2.5 w-2.5 rounded-full bg-[#3F5AE0]" initial={{ scale: 0 }} animate={featuresAnim.isInView ? { scale: 1 } : { scale: 0 }} transition={{ delay: i * 0.08, type: 'spring', stiffness: 400, damping: 10 }} />
@@ -730,12 +790,12 @@ export default function Home() {
           <div className="mx-auto max-w-6xl">
             <h2 className="text-4xl font-semibold md:text-5xl">Pricing</h2>
             <p className="mt-4 max-w-3xl text-lg text-[#4B5563]">
-              Transparent subscription plans for brands and free access for creators, with clear success-based fees.
+              Creator and brand plans with transparent subscription + success-based fees.
             </p>
             <div className="mt-8 grid gap-8 md:grid-cols-3">
               {pricingPlans.map((plan, index) => (
                 <motion.div
-                  key={plan.name}
+                  key={`${plan.label || 'plan'}-${plan.name}`}
                   initial={{ opacity: 0, y: 24 }}
                   animate={plan.popular && pricingAnim.isInView ? { opacity: 1, y: [0, -8, 0] } : pricingAnim.isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
                   transition={plan.popular ? { delay: 0.15, duration: 3, repeat: Infinity, ease: 'easeInOut' } : { delay: index * 0.15 }}
@@ -746,9 +806,23 @@ export default function Home() {
                 >
                   <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#4B6CFF]/20 blur-3xl" />
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_56%)]" />
-                  {plan.popular && <motion.span className="absolute -top-3 left-5 rounded-full bg-[#4B6CFF] px-3 py-1 text-xs text-black" initial={{ scale: 0, rotate: -10 }} animate={{ scale: 1, rotate: 0 }} transition={{ type: 'spring', stiffness: 400, delay: 0.5 }}>Most Popular</motion.span>}
-                  <h3 className="text-xl font-semibold">{plan.name}</h3>
-                  <p className="mt-2 text-3xl font-bold">{plan.price}<span className="text-base text-[#4B5563]">{plan.period}</span></p>
+                  {plan.badge && (
+                    <motion.span
+                      className={`absolute -top-3 left-5 rounded-full px-3 py-1 text-xs text-black ${plan.popular ? 'bg-[#4B6CFF]' : 'bg-black/10'}`}
+                      initial={{ scale: 0, rotate: -10 }}
+                      animate={{ scale: 1, rotate: 0 }}
+                      transition={{ type: 'spring', stiffness: 400, delay: 0.5 }}
+                    >
+                      {plan.badge}
+                    </motion.span>
+                  )}
+                  {plan.label && <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#6B7280]">{plan.label}</p>}
+                  <h3 className="mt-2 text-xl font-semibold">{plan.name}</h3>
+                  {plan.subtitle && <p className="mt-1 text-sm text-[#4B5563]">{plan.subtitle}</p>}
+                  <p className="mt-3 text-3xl font-bold">
+                    {plan.price}
+                    {plan.period && <span className="text-base text-[#4B5563]">{plan.period}</span>}
+                  </p>
                   <ul className="mt-4 space-y-2 text-base text-[#4B5563]">{plan.features.map((f) => <li key={f}>- {f}</li>)}</ul>
                   <motion.button className="relative mt-5 w-full overflow-hidden rounded-lg bg-[#3F5AE0] px-4 py-2.5 text-sm text-white">
                     {plan.cta}
@@ -757,7 +831,9 @@ export default function Home() {
                 </motion.div>
               ))}
             </div>
-            <p className="mt-6 text-base text-[#4B5563]">We also take 8-10% on completed deals. No hidden fees.</p>
+            <p className="mt-6 text-base text-[#4B5563]">
+              Platform fees vary by plan (creators: 10% to 4%, brands: 8% to 2-4%). No hidden fees.
+            </p>
           </div>
         </motion.section>
         <motion.section ref={testimonialAnim.ref} initial={{ opacity: 0, y: 40 }} animate={testimonialAnim.isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }} transition={{ duration: 0.6, ease }} className="px-4 py-28 sm:px-6 lg:px-8">
