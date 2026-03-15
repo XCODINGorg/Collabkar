@@ -802,22 +802,22 @@ export default function Home() {
                   whileHover={{ y: -8, boxShadow: '0 24px 64px rgba(63,90,224,0.25)' }}
                   onHoverStart={() => setHoveredPricing(index)}
                   onHoverEnd={() => setHoveredPricing(null)}
-                  className={`relative overflow-hidden rounded-[26px] border p-8 ${plan.popular ? 'border-[#3F5AE0]/40 bg-[linear-gradient(155deg,rgba(241,245,255,0.96),rgba(214,225,255,0.85))] shadow-[0_20px_50px_rgba(47,73,216,0.22)]' : 'border-[#293b96]/12 bg-[linear-gradient(155deg,rgba(255,255,255,0.98),rgba(243,246,255,0.9))] shadow-[0_16px_40px_rgba(28,44,123,0.12)]'}`}
+                  className={`relative overflow-hidden rounded-[26px] border p-8 ${plan.popular ? 'border-[#2F48CB] bg-white shadow-[0_20px_50px_rgba(47,73,216,0.22)]' : 'border-[#293b96]/12 bg-[linear-gradient(155deg,rgba(255,255,255,0.98),rgba(243,246,255,0.9))] shadow-[0_16px_40px_rgba(28,44,123,0.12)]'}`}
                 >
                   <div className="pointer-events-none absolute -right-12 -top-12 h-36 w-36 rounded-full bg-[#4B6CFF]/20 blur-3xl" />
                   <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(120deg,rgba(255,255,255,0.4),transparent_56%)]" />
-                  {plan.badge && (
-                    <motion.span
-                      className={`absolute -top-3 left-5 rounded-full px-3 py-1 text-xs text-black ${plan.popular ? 'bg-[#4B6CFF]' : 'bg-black/10'}`}
-                      initial={{ scale: 0, rotate: -10 }}
-                      animate={{ scale: 1, rotate: 0 }}
-                      transition={{ type: 'spring', stiffness: 400, delay: 0.5 }}
+                  <div className="relative inline-flex items-center">
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                        plan.badge || plan.popular
+                          ? 'bg-[#2F48CB] text-white'
+                          : 'border border-[#2F48CB]/20 bg-white text-[#2F48CB]'
+                      }`}
                     >
-                      {plan.badge}
-                    </motion.span>
-                  )}
-                  {plan.label && <p className="text-xs font-semibold uppercase tracking-[0.22em] text-[#6B7280]">{plan.label}</p>}
-                  <h3 className="mt-2 text-xl font-semibold">{plan.name}</h3>
+                      {[plan.label, plan.badge].filter(Boolean).join(' - ')}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-xl font-semibold">{plan.name}</h3>
                   {plan.subtitle && <p className="mt-1 text-sm text-[#4B5563]">{plan.subtitle}</p>}
                   <p className="mt-3 text-3xl font-bold">
                     {plan.price}
