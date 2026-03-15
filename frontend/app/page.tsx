@@ -245,18 +245,16 @@ function AnimatedCounter({ end, suffix = '', prefix = '' }: { end: number; suffi
 
 function CursorGlow() {
   const [mounted, setMounted] = useState(false);
-  const [isTouch, setIsTouch] = useState(false);
+  const [isTouch] = useState(() => (typeof navigator !== 'undefined' ? navigator.maxTouchPoints > 0 : false));
   const cursorX = useMotionValue(0);
   const cursorY = useMotionValue(0);
   const smoothX = useSpring(cursorX, { stiffness: 120, damping: 20 });
   const smoothY = useSpring(cursorY, { stiffness: 120, damping: 20 });
 
-  useEffect(() => setMounted(true), []);
-
   useEffect(() => {
-    if (!mounted) return;
-    setIsTouch(navigator.maxTouchPoints > 0);
-  }, [mounted]);
+    const timer = setTimeout(() => setMounted(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     if (!mounted || isTouch) return;
