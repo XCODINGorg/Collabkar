@@ -104,7 +104,7 @@ export default function SignupPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
       <Card>
         <div className="mb-6">
-          <BrandLogo imageClassName="h-11 w-auto" textClassName="text-xs font-medium tracking-wide text-gray-500" priority />
+          <BrandLogo imageClassName="h-11 w-auto" priority />
           <Title>Create your startup-ready account</Title>
           <SubtleText>Set up your role, profile basics, and social handles in one flow.</SubtleText>
         </div>

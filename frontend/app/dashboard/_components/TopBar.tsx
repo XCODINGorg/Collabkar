@@ -16,7 +16,7 @@ export default function TopBar({ title }: { title: string }) {
   return (
     <div className="flex items-center justify-between gap-4 bg-white border-b px-6 py-4">
       <div>
-        <BrandLogo imageClassName="h-9 w-auto" textClassName="text-sm text-gray-500" />
+        <BrandLogo imageClassName="h-9 w-auto" />
         <div className="text-xl font-bold">{title}</div>
       </div>
       <div className="flex items-center gap-3">

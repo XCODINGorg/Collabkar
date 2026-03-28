@@ -13,7 +13,7 @@ export function MarketingNav() {
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/75 backdrop-blur">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
-          <BrandLogo imageClassName="h-10 w-auto" textClassName="font-semibold tracking-tight text-gray-900" priority />
+          <BrandLogo imageClassName="h-10 w-auto" priority />
 
           <nav className="hidden items-center gap-6 md:flex">
             {NAV.map((item) => (
