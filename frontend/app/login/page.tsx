@@ -4,6 +4,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { login } from '../../lib/authClient';
+import { BrandLogo } from '../_components/BrandLogo';
 import { SocialAuthButtons } from '../_components/SocialAuthButtons';
 import { Card, Divider, ErrorBanner, Label, PrimaryButton, SubtleText, TextInput, Title } from '../_components/ui';
 
@@ -32,7 +33,7 @@ export default function LoginPage() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
       <Card>
         <div className="mb-6">
-          <div className="text-xs font-medium tracking-wide text-gray-500">Collabkar</div>
+          <BrandLogo imageClassName="h-11 w-auto" textClassName="text-xs font-medium tracking-wide text-gray-500" priority />
           <Title>Log in</Title>
           <SubtleText>Use your email and password, or continue with a provider.</SubtleText>
         </div>

@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { clearToken } from '../../../lib/authClient';
+import { BrandLogo } from '../../_components/BrandLogo';
 
 export default function TopBar({ title }: { title: string }) {
   const router = useRouter();
@@ -15,7 +16,7 @@ export default function TopBar({ title }: { title: string }) {
   return (
     <div className="flex items-center justify-between gap-4 bg-white border-b px-6 py-4">
       <div>
-        <div className="text-sm text-gray-500">Collabkar</div>
+        <BrandLogo imageClassName="h-9 w-auto" textClassName="text-sm text-gray-500" />
         <div className="text-xl font-bold">{title}</div>
       </div>
       <div className="flex items-center gap-3">
@@ -30,4 +31,3 @@ export default function TopBar({ title }: { title: string }) {
     </div>
   );
 }
-

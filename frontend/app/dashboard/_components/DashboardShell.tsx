@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
@@ -60,6 +61,16 @@ export default function DashboardShell({
       <div className="mx-auto flex max-w-7xl gap-6 px-4 py-6 sm:px-6 lg:px-8">
         <aside className="hidden w-72 shrink-0 md:block">
           <div className="sticky top-6 rounded-2xl border border-black/10 bg-white/70 p-4 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
+            <Link href="/" className="mb-4 flex items-center justify-center rounded-2xl border border-black/5 bg-white/70 px-4 py-3">
+              <Image
+                src="/bg-removed.png"
+                alt="Collabkar logo"
+                width={220}
+                height={64}
+                className="h-10 w-auto"
+                priority
+              />
+            </Link>
             <div className="flex items-center justify-between gap-3 px-2 pb-4">
               <div className="flex items-center gap-3">
                 <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#3F5AE0] text-sm font-semibold text-white shadow-[0_12px_25px_rgba(63,90,224,0.32)]">

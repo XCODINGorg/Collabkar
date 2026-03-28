@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BrandLogo } from './BrandLogo';
 import { Container, PrimaryLinkButton, SecondaryLinkButton } from './marketing';
 
 const NAV = [
@@ -12,12 +13,7 @@ export function MarketingNav() {
     <header className="sticky top-0 z-40 border-b border-gray-200 bg-white/75 backdrop-blur">
       <Container>
         <div className="flex h-16 items-center justify-between gap-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600 text-sm font-semibold text-white shadow-sm">
-              Ck
-            </div>
-            <div className="font-semibold tracking-tight text-gray-900">Collabkar</div>
-          </Link>
+          <BrandLogo imageClassName="h-10 w-auto" textClassName="font-semibold tracking-tight text-gray-900" priority />
 
           <nav className="hidden items-center gap-6 md:flex">
             {NAV.map((item) => (
@@ -40,4 +36,3 @@ export function MarketingNav() {
     </header>
   );
 }
-

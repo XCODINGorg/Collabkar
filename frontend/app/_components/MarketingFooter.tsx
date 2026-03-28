@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { BrandLogo } from './BrandLogo';
 import { Container } from './marketing';
 
 export function MarketingFooter() {
@@ -7,7 +8,7 @@ export function MarketingFooter() {
       <Container>
         <div className="grid gap-8 py-12 md:grid-cols-4">
           <div className="md:col-span-2">
-            <div className="text-sm font-semibold text-gray-900">Collabkar</div>
+            <BrandLogo imageClassName="h-12 w-auto" textClassName="text-sm font-semibold text-gray-900" />
             <div className="mt-2 text-sm text-gray-600">
               A startup-style marketplace to match brands with creators using offline AI models.
             </div>
@@ -49,4 +50,3 @@ export function MarketingFooter() {
     </footer>
   );
 }
-

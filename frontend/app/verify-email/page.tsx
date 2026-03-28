@@ -5,6 +5,7 @@ import { Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useMemo, useState } from 'react';
 import { resendVerification, verifyEmail } from '../../lib/authClient';
+import { BrandLogo } from '../_components/BrandLogo';
 import { Card, ErrorBanner, GhostButton, Label, SubtleText, TextInput, Title } from '../_components/ui';
 
 function VerifyEmailContent() {
@@ -64,7 +65,7 @@ function VerifyEmailContent() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
       <Card>
         <div className="mb-6">
-          <div className="text-xs font-medium tracking-wide text-gray-500">Collabkar</div>
+          <BrandLogo imageClassName="h-11 w-auto" textClassName="text-xs font-medium tracking-wide text-gray-500" priority />
           <Title>Verify your email</Title>
           <SubtleText>
             {canVerify
