@@ -3,12 +3,15 @@
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import DashboardShell from '../_components/DashboardShell';
+import ProfilePanel from '../_components/ProfilePanel';
 import { clearToken, fetchMe, type AuthUser } from '../../../lib/authClient';
+import { fetchActiveCampaigns, type CampaignRecord } from '../../../lib/campaignClient';
 
 export default function CreatorDashboard() {
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [user, setUser] = useState<AuthUser | null>(null);
+  const [campaigns, setCampaigns] = useState<CampaignRecord[]>([]);
 
   useEffect(() => {
     const run = async () => {
@@ -18,6 +21,8 @@ export default function CreatorDashboard() {
           return router.replace('/dashboard');
         }
         setUser(me);
+        const active = await fetchActiveCampaigns().catch(() => []);
+        setCampaigns(active);
       } catch {
         clearToken();
         router.replace('/login');
@@ -29,7 +34,7 @@ export default function CreatorDashboard() {
   }, [router]);
 
   if (loading) {
-    return <div className="min-h-screen bg-gray-50 p-6 text-gray-700">Loading…</div>;
+    return <div className="min-h-screen bg-gray-50 p-6 text-gray-700">Loading...</div>;
   }
 
   if (!user) return null;
@@ -37,74 +42,79 @@ export default function CreatorDashboard() {
   return (
     <DashboardShell title="Creator Dashboard" user={user}>
       <div className="grid gap-6 lg:grid-cols-3">
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           <div className="grid gap-4 sm:grid-cols-3">
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-5 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
-              <div className="text-xs uppercase tracking-wider text-gray-500">Active deals</div>
-              <div className="mt-2 text-3xl font-semibold">3</div>
-              <div className="mt-2 text-sm text-gray-600">2 awaiting approval • 1 in progress</div>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-5 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
-              <div className="text-xs uppercase tracking-wider text-gray-500">This month</div>
-              <div className="mt-2 text-3xl font-semibold">₹18,500</div>
-              <div className="mt-2 text-sm text-gray-600">Estimated earnings (beta)</div>
-            </div>
-            <div className="rounded-2xl border border-black/10 bg-white/70 p-5 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
-              <div className="text-xs uppercase tracking-wider text-gray-500">Response rate</div>
-              <div className="mt-2 text-3xl font-semibold">92%</div>
-              <div className="mt-2 text-sm text-gray-600">Keep replying within 24h</div>
-            </div>
+            <MetricCard
+              label="Profile completion"
+              value={`${user.onboarding?.profileCompletion ?? 0}%`}
+              meta="Complete your creator profile to look campaign-ready"
+            />
+            <MetricCard
+              label="Primary platform"
+              value={user.profile?.primaryPlatform || 'n/a'}
+              meta={user.profile?.creatorCategory || 'Choose your niche category'}
+            />
+            <MetricCard
+              label="Connected socials"
+              value={String(Object.values(user.profile?.socialHandles || {}).filter(Boolean).length)}
+              meta="Instagram, TikTok, YouTube, LinkedIn, X"
+            />
           </div>
+
+          <ProfilePanel user={user} onUserChange={setUser} />
 
           <div className="rounded-2xl border border-black/10 bg-white/70 p-6 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
             <div className="flex items-center justify-between gap-4">
               <div>
-                <div className="text-lg font-semibold">Deal pipeline</div>
-                <div className="text-sm text-gray-600">Track every collab from pitch → payout</div>
+                <div className="text-lg font-semibold">Active campaigns</div>
+                <div className="text-sm text-gray-600">Brand opportunities currently live in the MVP database.</div>
               </div>
-              <button className="rounded-xl bg-[#3F5AE0] px-4 py-2 text-sm text-white shadow-[0_14px_30px_rgba(63,90,224,0.28)] hover:shadow-[0_18px_38px_rgba(63,90,224,0.34)]">
-                New pitch
+              <button className="rounded-xl bg-[#3F5AE0] px-4 py-2 text-sm text-white shadow-[0_14px_30px_rgba(63,90,224,0.28)]">
+                View brand match
               </button>
             </div>
 
-            <div className="mt-5 overflow-hidden rounded-2xl border border-black/10 bg-white">
-              <div className="grid grid-cols-12 gap-2 border-b border-black/10 bg-gray-50 px-4 py-3 text-xs font-semibold uppercase tracking-wider text-gray-500">
-                <div className="col-span-5">Brand</div>
-                <div className="col-span-3">Deliverable</div>
-                <div className="col-span-2">Status</div>
-                <div className="col-span-2 text-right">Payout</div>
-              </div>
-              {[
-                { brand: 'D2C Skincare Co.', deliverable: '1 Reel + 2 Stories', status: 'In progress', payout: '₹7,500' },
-                { brand: 'Healthy Snacks', deliverable: '3 Stories', status: 'Awaiting', payout: '₹3,000' },
-                { brand: 'Tech Accessories', deliverable: '1 Post', status: 'Awaiting', payout: '₹8,000' },
-              ].map((row) => (
-                <div key={row.brand} className="grid grid-cols-12 gap-2 px-4 py-3 text-sm text-gray-700">
-                  <div className="col-span-5 font-medium text-[#0B0B0F]">{row.brand}</div>
-                  <div className="col-span-3">{row.deliverable}</div>
-                  <div className="col-span-2">
-                    <span className={`inline-flex rounded-full px-2.5 py-1 text-xs font-medium ${
-                      row.status === 'In progress' ? 'bg-green-100 text-green-700' : 'bg-amber-100 text-amber-700'
-                    }`}>
-                      {row.status}
-                    </span>
+            {campaigns.length ? (
+              <div className="mt-5 grid gap-4 sm:grid-cols-2">
+                {campaigns.slice(0, 4).map((campaign) => (
+                  <div key={campaign._id} className="rounded-2xl border border-black/10 bg-white p-5">
+                    <div className="flex items-center justify-between gap-3">
+                      <div className="font-semibold">{campaign.title}</div>
+                      <span className="inline-flex rounded-full bg-green-100 px-2.5 py-1 text-xs font-medium text-green-700">
+                        {campaign.status}
+                      </span>
+                    </div>
+                    <div className="mt-3 text-sm text-gray-700">{campaign.description}</div>
+                    <div className="mt-4 grid grid-cols-2 gap-3 text-sm text-gray-700">
+                      <div>
+                        <div className="text-xs text-gray-500">Budget</div>
+                        <div className="font-medium">INR {campaign.budgetMin} - {campaign.budgetMax}</div>
+                      </div>
+                      <div>
+                        <div className="text-xs text-gray-500">Niche</div>
+                        <div className="font-medium">{campaign.targetNiche || 'Open'}</div>
+                      </div>
+                    </div>
                   </div>
-                  <div className="col-span-2 text-right font-semibold text-[#0B0B0F]">{row.payout}</div>
-                </div>
-              ))}
-            </div>
+                ))}
+              </div>
+            ) : (
+              <div className="mt-5 rounded-2xl border border-dashed border-black/10 bg-white p-5 text-sm text-gray-600">
+                No active campaigns yet. Once brands create and activate campaigns, they will show here.
+              </div>
+            )}
           </div>
         </div>
 
         <div className="space-y-6">
           <div className="rounded-2xl border border-black/10 bg-white/70 p-6 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
             <div className="text-lg font-semibold">Today</div>
-            <div className="mt-2 text-sm text-gray-600">Your next actions to keep momentum.</div>
+            <div className="mt-2 text-sm text-gray-600">Small next steps to make your account stronger.</div>
             <div className="mt-4 space-y-3">
               {[
-                { title: 'Upload draft reel', meta: 'D2C Skincare Co. • due tomorrow' },
-                { title: 'Reply to brand chat', meta: 'Healthy Snacks • 2 messages' },
-                { title: 'Confirm posting date', meta: 'Tech Accessories • awaiting your reply' },
+                { title: 'Add at least 2 social handles', meta: 'Helps brands verify your presence faster.' },
+                { title: 'Write a sharper bio', meta: 'Explain audience, niche, and what collaborations you do.' },
+                { title: 'Use the AI pricing tool', meta: 'Generate a baseline price before pitching brands.' },
               ].map((item) => (
                 <div key={item.title} className="rounded-xl border border-black/10 bg-white p-4">
                   <div className="font-medium">{item.title}</div>
@@ -117,14 +127,26 @@ export default function CreatorDashboard() {
           <div className="rounded-2xl border border-[#3F5AE0]/20 bg-[#3F5AE0]/10 p-6">
             <div className="text-xs font-semibold uppercase tracking-wider text-[#2E43B7]">AI suggestion</div>
             <div className="mt-2 text-sm text-gray-700">
-              Boost your acceptance rate by sending a short pitch with 1–2 past campaign screenshots.
+              {user.profile?.bio
+                ? 'Your profile is shaping up well. Connect more socials to improve trust and matching.'
+                : 'Write a short bio explaining your content style and audience before applying to campaigns.'}
             </div>
             <button className="mt-4 w-full rounded-xl bg-[#0B0B0F] px-4 py-2.5 text-sm text-white">
-              Generate a pitch template
+              Open creator analysis
             </button>
           </div>
         </div>
       </div>
     </DashboardShell>
+  );
+}
+
+function MetricCard({ label, value, meta }: { label: string; value: string; meta: string }) {
+  return (
+    <div className="rounded-2xl border border-black/10 bg-white/70 p-5 shadow-[0_18px_45px_rgba(30,45,122,0.08)] backdrop-blur">
+      <div className="text-xs uppercase tracking-wider text-gray-500">{label}</div>
+      <div className="mt-2 text-3xl font-semibold capitalize">{value}</div>
+      <div className="mt-2 text-sm text-gray-600">{meta}</div>
+    </div>
   );
 }

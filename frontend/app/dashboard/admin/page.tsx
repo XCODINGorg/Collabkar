@@ -27,7 +27,7 @@ export default function AdminDashboard() {
     run();
   }, [router]);
 
-  if (loading) return <div className="min-h-screen bg-gray-50 p-6 text-gray-700">Loading…</div>;
+  if (loading) return <div className="min-h-screen bg-gray-50 p-6 text-gray-700">Loading...</div>;
   if (!user) return null;
 
   return (
@@ -85,7 +85,7 @@ export default function AdminDashboard() {
               {[
                 'Sign up as Creator and reach dashboard',
                 'Sign up as Brand and reach dashboard',
-                'Log in as admin (admin / 1234)',
+                'Log in with an admin account',
                 'Confirm admin can open both views',
               ].map((t) => (
                 <div key={t} className="flex items-start gap-3 rounded-xl border border-black/10 bg-white p-4">

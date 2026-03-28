@@ -1,0 +1,84 @@
+'use client';
+
+import { Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
+import { setToken } from '../../../lib/authClient';
+import { apiUrl } from '../../../lib/api';
+import { Card, SubtleText, Title } from '../../_components/ui';
+
+function sanitizeRedirect(value: string | null) {
+  const raw = typeof value === 'string' ? value.trim() : '';
+  if (!raw) return '/dashboard';
+  if (!raw.startsWith('/')) return '/dashboard';
+  if (raw.startsWith('//')) return '/dashboard';
+  if (raw.includes('://')) return '/dashboard';
+  return raw;
+}
+
+function AuthCallbackContent() {
+  const router = useRouter();
+  const search = useSearchParams();
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const token = search.get('token');
+    const code = search.get('code');
+    const redirectTo = sanitizeRedirect(search.get('redirect'));
+    if (token) {
+      setToken(token);
+      router.replace(redirectTo);
+      return;
+    }
+
+    if (!code) {
+      setError('Missing code.');
+      return;
+    }
+
+    const run = async () => {
+      try {
+        const response = await fetch(apiUrl('/api/auth/oauth/exchange'), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code }),
+        });
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok) throw new Error(data?.error || 'oauth_exchange_failed');
+        if (!data?.token) throw new Error('oauth_exchange_missing_token');
+        setToken(String(data.token));
+        router.replace(redirectTo);
+      } catch (err) {
+        setError(err instanceof Error ? err.message : 'OAuth exchange failed');
+      }
+    };
+
+    run();
+  }, [router, search]);
+
+  return (
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
+      <Card>
+        <Title>Signing you in</Title>
+        <SubtleText>{error ? error : 'Please wait…'}</SubtleText>
+      </Card>
+    </div>
+  );
+}
+
+export default function AuthCallbackPage() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
+          <Card>
+            <Title>Signing you in</Title>
+            <SubtleText>Please wait...</SubtleText>
+          </Card>
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
+  );
+}
