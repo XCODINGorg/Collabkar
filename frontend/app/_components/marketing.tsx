@@ -14,7 +14,7 @@ export function Pill({ children }: { children: ReactNode }) {
 }
 
 export function H1({ children }: { children: ReactNode }) {
-  return <h1 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl">{children}</h1>;
+  return <h1 className="text-4xl font-semibold tracking-tight text-gray-900 sm:text-5xl lg:text-6xl">{children}</h1>;
 }
 
 export function Lead({ children }: { children: ReactNode }) {
@@ -40,7 +40,7 @@ export function PrimaryLinkButton({
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-xl bg-blue-600 px-5 py-3 text-sm font-medium text-white shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="inline-flex w-full items-center justify-center rounded-xl bg-gray-900 px-5 py-3 text-sm font-medium text-white shadow-sm transition hover:bg-black focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 sm:w-auto"
     >
       {children}
     </Link>
@@ -57,7 +57,7 @@ export function SecondaryLinkButton({
   return (
     <Link
       href={href}
-      className="inline-flex items-center justify-center rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-900 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+      className="inline-flex w-full items-center justify-center rounded-xl border border-gray-200 bg-white px-5 py-3 text-sm font-medium text-gray-900 shadow-sm transition hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:ring-offset-2 sm:w-auto"
     >
       {children}
     </Link>
@@ -74,7 +74,7 @@ export function FeatureCard({
   icon: ReactNode;
 }) {
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+    <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
       <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-blue-600/10 text-blue-700">
         {icon}
       </div>
@@ -98,4 +98,3 @@ export function Stat({
     </div>
   );
 }
-

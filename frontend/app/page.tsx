@@ -39,15 +39,8 @@ function IconShield() {
 function IconSpark() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className="text-blue-700">
-      <path
-        fill="currentColor"
-        d="M12 2l1.7 6.1L20 10l-6.3 1.9L12 18l-1.7-6.1L4 10l6.3-1.9L12 2Z"
-      />
-      <path
-        fill="currentColor"
-        d="M19 14l.9 3.1L23 18l-3.1.9L19 22l-.9-3.1L15 18l3.1-.9L19 14Z"
-        opacity=".6"
-      />
+      <path fill="currentColor" d="M12 2l1.7 6.1L20 10l-6.3 1.9L12 18l-1.7-6.1L4 10l6.3-1.9L12 2Z" />
+      <path fill="currentColor" d="M19 14l.9 3.1L23 18l-3.1.9L19 22l-.9-3.1L15 18l3.1-.9L19 14Z" opacity=".6" />
     </svg>
   );
 }
@@ -55,10 +48,7 @@ function IconSpark() {
 function IconBolt() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className="text-blue-700">
-      <path
-        fill="currentColor"
-        d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z"
-      />
+      <path fill="currentColor" d="M13 2 3 14h7l-1 8 12-14h-7l-1-6Z" />
     </svg>
   );
 }
@@ -66,15 +56,12 @@ function IconBolt() {
 function IconChat() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" className="text-blue-700">
-      <path
-        fill="currentColor"
-        d="M4 4h16v11H7.4L4 18.4V4Zm2 2v8.6L6.6 13H18V6H6Z"
-      />
+      <path fill="currentColor" d="M4 4h16v11H7.4L4 18.4V4Zm2 2v8.6L6.6 13H18V6H6Z" />
     </svg>
   );
 }
 
-function TestimonialCard({
+function QuoteCard({
   quote,
   name,
   meta,
@@ -85,7 +72,7 @@ function TestimonialCard({
 }) {
   return (
     <div className="rounded-3xl border border-gray-200 bg-white p-7 shadow-sm">
-      <div className="text-sm text-gray-700">“{quote}”</div>
+      <p className="text-sm leading-6 text-gray-700">"{quote}"</p>
       <div className="mt-5">
         <div className="text-sm font-semibold text-gray-900">{name}</div>
         <div className="mt-1 text-xs text-gray-500">{meta}</div>
@@ -103,10 +90,31 @@ function FaqItem({ q, a }: { q: string; a: string }) {
           <span className="text-gray-400 transition group-open:rotate-180">⌄</span>
         </div>
       </summary>
-      <div className="mt-3 text-sm text-gray-600">{a}</div>
+      <div className="mt-3 text-sm leading-6 text-gray-600">{a}</div>
     </details>
   );
 }
+
+const quickStats = [
+  { value: '10k+', label: 'Creator profiles ready to scale' },
+  { value: '2-stage', label: 'Rules and ML ranking flow' },
+  { value: 'Offline', label: 'Local AI pipeline without paid APIs' },
+];
+
+const workflow = [
+  { step: '01', title: 'Set the brief', description: 'Capture niche, budget, deliverables, and campaign goals.' },
+  { step: '02', title: 'Review matches', description: 'Get creator suggestions filtered by fit, signals, and pricing.' },
+  { step: '03', title: 'Shortlist faster', description: 'Compare candidates in a cleaner dashboard without scattered tabs.' },
+  { step: '04', title: 'Run the campaign', description: 'Track progress and keep the workflow organized from one place.' },
+];
+
+const useCases = [
+  'UGC for paid ads and product demos',
+  'Micro-influencer seeding for launches',
+  'Local promotions for cafes, gyms, and salons',
+  'Performance campaigns and app growth',
+  'B2B creator campaigns for niche audiences',
+];
 
 export default function Home() {
   return (
@@ -115,55 +123,84 @@ export default function Home() {
 
       <main>
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_10%,#DBEAFE_0%,transparent_40%),radial-gradient(circle_at_80%_20%,#EDE9FE_0%,transparent_42%),radial-gradient(circle_at_50%_90%,#DCFCE7_0%,transparent_45%)]" />
+          <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_10%_10%,#DBEAFE_0%,transparent_38%),radial-gradient(circle_at_82%_18%,#EDE9FE_0%,transparent_36%),linear-gradient(180deg,#FFFFFF_0%,#F8FAFC_100%)]" />
           <Container>
-            <div className="py-16 sm:py-20">
-              <div className="flex flex-col gap-12 lg:flex-row lg:items-center lg:justify-between">
-                <div className="max-w-2xl">
-                  <Pill>Offline AI • No paid APIs • Fast matching</Pill>
-                  <div className="mt-5">
-                    <H1>Find creators, launch campaigns, and close deals in one place</H1>
-                    <div className="mt-4">
+            <div className="py-14 sm:py-18 lg:py-24">
+              <div className="grid gap-10 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
+                <div className="max-w-3xl">
+                  <Pill>Offline AI • Minimal workflow • Built for modern creator teams</Pill>
+                  <div className="mt-5 max-w-2xl">
+                    <H1>Discover creators and manage campaigns without the clutter.</H1>
+                    <div className="mt-5">
                       <Lead>
-                        A startup-style creator marketplace that helps brands discover talent and helps creators get paid—powered by local, fully offline models.
+                        Collabkar helps brands find talent, estimate pricing, and move faster, while creators get a cleaner product experience and more consistent visibility.
                       </Lead>
                     </div>
                   </div>
-                  <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+
+                  <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
                     <PrimaryLinkButton href="/creators">Browse creators</PrimaryLinkButton>
                     <SecondaryLinkButton href="/pricing">View pricing</SecondaryLinkButton>
                   </div>
-                  <div className="mt-6 text-xs text-gray-500">
-                    Built for micro-influencer + UGC campaigns. Works without external AI services.
+
+                  <div className="mt-6 flex flex-wrap gap-3 text-xs text-gray-500">
+                    <span className="rounded-full border border-gray-200 bg-white px-3 py-1">Built for micro-influencer campaigns</span>
+                    <span className="rounded-full border border-gray-200 bg-white px-3 py-1">No external AI dependency</span>
+                    <span className="rounded-full border border-gray-200 bg-white px-3 py-1">Clean responsive UI</span>
                   </div>
                 </div>
 
                 <div className="w-full max-w-xl">
-                  <div className="rounded-3xl border border-gray-200 bg-white/80 p-6 shadow-sm backdrop-blur">
-                    <div className="text-sm font-semibold">Search creators</div>
-                    <div className="mt-1 text-sm text-gray-600">
-                      Start with niche + budget and we’ll suggest the best matches.
+                  <div className="rounded-[2rem] border border-gray-200 bg-white/95 p-5 shadow-[0_20px_60px_rgba(15,23,42,0.08)] backdrop-blur sm:p-6">
+                    <div className="flex items-start justify-between gap-4">
+                      <div>
+                        <div className="text-sm font-semibold text-gray-900">Quick creator search</div>
+                        <div className="mt-1 text-sm text-gray-600">
+                          Start with a niche, budget, and campaign idea to get more focused matches.
+                        </div>
+                      </div>
+                      <div className="rounded-2xl border border-gray-200 bg-gray-50 px-3 py-2 text-xs text-gray-500">
+                        MVP
+                      </div>
                     </div>
+
+                    <div className="mt-5 grid gap-3 sm:grid-cols-3">
+                      <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                        <div className="text-xs uppercase tracking-wide text-gray-500">Pricing</div>
+                        <div className="mt-2 text-lg font-semibold text-gray-900">AI-assisted</div>
+                      </div>
+                      <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                        <div className="text-xs uppercase tracking-wide text-gray-500">Matches</div>
+                        <div className="mt-2 text-lg font-semibold text-gray-900">Rules + ML</div>
+                      </div>
+                      <div className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
+                        <div className="text-xs uppercase tracking-wide text-gray-500">Mode</div>
+                        <div className="mt-2 text-lg font-semibold text-gray-900">Offline</div>
+                      </div>
+                    </div>
+
                     <form action="/creators" method="GET" className="mt-5 grid gap-3 sm:grid-cols-2">
                       <div className="sm:col-span-2">
                         <label className="text-xs font-medium text-gray-700">Campaign description</label>
-                        <div className="mt-1 flex items-center gap-2 rounded-xl border border-gray-200 bg-white px-3 py-2">
+                        <div className="mt-1 flex items-center gap-2 rounded-2xl border border-gray-200 bg-white px-4 py-3">
                           <IconSearch />
                           <input
                             name="q"
-                            placeholder="e.g. skincare UGC, fitness reels, café launch…"
+                            placeholder="e.g. skincare UGC, fitness reels, cafe launch"
                             className="w-full bg-transparent text-sm outline-none placeholder:text-gray-400"
                           />
                         </div>
                       </div>
+
                       <div>
                         <label className="text-xs font-medium text-gray-700">Niche</label>
                         <input
                           name="niche"
-                          placeholder="fitness, food, tech…"
-                          className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          placeholder="fitness, food, tech"
+                          className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-200"
                         />
                       </div>
+
                       <div>
                         <label className="text-xs font-medium text-gray-700">Budget (USD)</label>
                         <input
@@ -171,14 +208,13 @@ export default function Home() {
                           type="number"
                           min="0"
                           placeholder="500"
-                          className="mt-1 w-full rounded-xl border border-gray-200 bg-white px-3 py-2 text-sm outline-none placeholder:text-gray-400 focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                          className="mt-1 w-full rounded-2xl border border-gray-200 bg-white px-4 py-3 text-sm outline-none placeholder:text-gray-400 focus:border-gray-900 focus:ring-2 focus:ring-gray-200"
                         />
                       </div>
-                      <div className="sm:col-span-2 mt-1 flex items-center justify-between gap-3">
-                        <div className="text-xs text-gray-500">
-                          Tip: add location + deliverables for better matches.
-                        </div>
-                        <button className="rounded-xl bg-gray-900 px-4 py-2 text-sm font-medium text-white hover:bg-black">
+
+                      <div className="mt-1 flex flex-col gap-3 sm:col-span-2 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="text-xs text-gray-500">Tip: add location and deliverables for better matches.</div>
+                        <button className="w-full rounded-2xl bg-gray-900 px-4 py-3 text-sm font-medium text-white transition hover:bg-black sm:w-auto">
                           Search
                         </button>
                       </div>
@@ -187,36 +223,22 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-12 grid gap-4 sm:grid-cols-3">
-                <Stat value="10k+" label="Creator profiles (target scale)" />
-                <Stat value="2-stage" label="Rules + ML ranking engine" />
-                <Stat value="Offline" label="TF‑IDF + KMeans + RandomForest" />
-              </div>
-
-              <div className="mt-10 rounded-3xl border border-gray-200 bg-white/70 p-6 shadow-sm backdrop-blur">
-                <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">Built like a startup</div>
-                <div className="mt-3 grid gap-4 md:grid-cols-3">
-                  {[
-                    { k: 'Fast onboarding', v: 'Email verification + optional OAuth sign-in.' },
-                    { k: 'Transparent pricing', v: 'Estimate creator rates from engagement + followers.' },
-                    { k: 'Scales over time', v: 'Queue-based scraping + dataset builder + retraining.' },
-                  ].map((item) => (
-                    <div key={item.k} className="rounded-2xl border border-gray-200 bg-white p-5">
-                      <div className="text-sm font-semibold text-gray-900">{item.k}</div>
-                      <div className="mt-1 text-sm text-gray-600">{item.v}</div>
-                    </div>
-                  ))}
-                </div>
+              <div className="mt-10 grid gap-4 sm:grid-cols-3">
+                {quickStats.map((stat) => (
+                  <Stat key={stat.label} value={stat.value} label={stat.label} />
+                ))}
               </div>
             </div>
           </Container>
         </section>
 
-        <section className="py-10 border-y border-gray-200 bg-white">
+        <section className="border-y border-gray-200 bg-white py-8">
           <Container>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              <div className="text-sm font-semibold text-gray-900">Trusted by teams running micro-influencer + UGC campaigns</div>
-              <div className="grid grid-cols-2 gap-3 text-xs text-gray-500 sm:flex sm:flex-wrap sm:gap-6">
+            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+              <div className="max-w-xl text-sm font-semibold text-gray-900">
+                Trusted by teams building repeatable micro-influencer and UGC workflows.
+              </div>
+              <div className="grid grid-cols-2 gap-3 text-xs text-gray-500 sm:flex sm:flex-wrap sm:gap-3">
                 <span className="rounded-full border border-gray-200 px-3 py-1">D2C brands</span>
                 <span className="rounded-full border border-gray-200 px-3 py-1">Agencies</span>
                 <span className="rounded-full border border-gray-200 px-3 py-1">Local SMBs</span>
@@ -230,82 +252,73 @@ export default function Home() {
           <Container>
             <SectionTitle
               title="How it works"
-              subtitle="Search creators, shortlist the best fits, and manage campaigns with transparent pricing."
+              subtitle="A tighter workflow for discovering creators, comparing fit, and moving campaigns forward."
             />
+
             <div className="mt-8 grid gap-4 md:grid-cols-3">
               <FeatureCard
                 title="Discover"
-                description="Browse creators by niche, location, engagement, and estimated price. Start small with micro-influencers."
+                description="Filter by niche, budget, location, and engagement without digging through spreadsheets."
                 icon={<IconSearch />}
               />
               <FeatureCard
                 title="Match"
-                description="Hybrid matching: rules-first filtering + offline ML ranking using engagement, price-fit, and content similarity."
+                description="Blend rule-based filtering with local ML signals to surface more relevant creators."
                 icon={<IconSpark />}
               />
               <FeatureCard
                 title="Protect"
-                description="Email verification + rate limits + secure headers. Optional OAuth login for smoother onboarding."
+                description="Keep onboarding safer with verification, auth controls, and a more structured pipeline."
                 icon={<IconShield />}
               />
             </div>
 
             <div className="mt-10 grid gap-4 lg:grid-cols-4">
-              {[
-                { n: '01', t: 'Post a brief', d: 'Describe niche, deliverables, and budget.' },
-                { n: '02', t: 'Get matches', d: 'Rule-based filter + ML ranking returns best fits.' },
-                { n: '03', t: 'Shortlist & invite', d: 'Compare prices and message creators.' },
-                { n: '04', t: 'Track delivery', d: 'Review content, approve, and close the deal.' },
-              ].map((s) => (
-                <div key={s.n} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-                  <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">{s.n}</div>
-                  <div className="mt-3 text-lg font-semibold text-gray-900">{s.t}</div>
-                  <div className="mt-2 text-sm text-gray-600">{s.d}</div>
+              {workflow.map((item) => (
+                <div key={item.step} className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
+                  <div className="text-xs font-semibold uppercase tracking-wider text-gray-500">{item.step}</div>
+                  <div className="mt-3 text-lg font-semibold text-gray-900">{item.title}</div>
+                  <div className="mt-2 text-sm leading-6 text-gray-600">{item.description}</div>
                 </div>
               ))}
             </div>
           </Container>
         </section>
 
-        <section className="py-16 bg-gray-50">
+        <section className="bg-gray-50 py-16">
           <Container>
             <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
               <div>
                 <SectionTitle
                   title="Built for brands and creators"
-                  subtitle="Two-sided UX that feels like a modern SaaS—simple, fast, and transparent."
+                  subtitle="Two-sided product thinking with a lighter, more focused experience."
                 />
                 <div className="mt-6 grid gap-3 sm:grid-cols-2">
                   {[
-                    { t: 'For brands', d: 'Find creators by niche, budget, location, and engagement.' },
-                    { t: 'For creators', d: 'Get discovered, estimate fair pricing, and grow your pipeline.' },
-                    { t: 'For agencies', d: 'Batch workflows and repeatable campaigns with shortlists.' },
-                    { t: 'For admins', d: 'Safer onboarding + guardrails for abuse prevention.' },
-                  ].map((x) => (
-                    <div key={x.t} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
-                      <div className="text-sm font-semibold text-gray-900">{x.t}</div>
-                      <div className="mt-1 text-sm text-gray-600">{x.d}</div>
+                    { title: 'For brands', description: 'Search quickly, shortlist with confidence, and move campaigns forward.' },
+                    { title: 'For creators', description: 'Get discovered faster with cleaner profiles and better pricing context.' },
+                    { title: 'For agencies', description: 'Run repeatable sourcing workflows without scattered tools.' },
+                    { title: 'For admins', description: 'Keep visibility into onboarding, safety, and platform health.' },
+                  ].map((item) => (
+                    <div key={item.title} className="rounded-2xl border border-gray-200 bg-white p-5 shadow-sm">
+                      <div className="text-sm font-semibold text-gray-900">{item.title}</div>
+                      <div className="mt-1 text-sm leading-6 text-gray-600">{item.description}</div>
                     </div>
                   ))}
                 </div>
               </div>
 
               <div className="rounded-3xl border border-gray-200 bg-white p-7 shadow-sm">
-                <div className="text-sm font-semibold">Popular use-cases</div>
+                <div className="text-sm font-semibold">Popular use cases</div>
                 <div className="mt-5 space-y-3 text-sm text-gray-700">
-                  {[
-                    'UGC for paid ads (hooks, testimonials, product demos)',
-                    'Micro-influencer seeding for product launches',
-                    'Local store promotions (cafés, gyms, salons)',
-                    'App installs and performance campaigns',
-                    'B2B creator marketing for niche audiences',
-                  ].map((item) => (
+                  {useCases.map((item) => (
                     <div key={item} className="flex gap-2">
                       <span className="mt-0.5 text-blue-700">•</span>
                       <span>{item}</span>
                     </div>
                   ))}
                 </div>
+
                 <div className="mt-6 rounded-2xl border border-gray-200 bg-gray-50 p-4">
                   <div className="flex items-center gap-2 text-sm font-semibold text-gray-900">
                     <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/10">
@@ -313,11 +326,12 @@ export default function Home() {
                     </span>
                     Built-in workflow
                   </div>
-                  <div className="mt-1 text-sm text-gray-600">
-                    Shortlist creators, message them, and keep everything organized—like a real startup product.
+                  <div className="mt-1 text-sm leading-6 text-gray-600">
+                    Shortlist creators, compare them faster, and keep everything organized in one cleaner system.
                   </div>
                 </div>
-                <div className="mt-7 flex gap-3">
+
+                <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                   <PrimaryLinkButton href="/creators">Browse creators</PrimaryLinkButton>
                   <SecondaryLinkButton href="/pricing">Pricing</SecondaryLinkButton>
                 </div>
@@ -328,22 +342,19 @@ export default function Home() {
 
         <section className="py-16">
           <Container>
-            <SectionTitle
-              title="What users say"
-              subtitle="Demo testimonials—replace with real quotes as you onboard creators and brands."
-            />
+            <SectionTitle title="What users say" subtitle="Early product feedback for the MVP direction." />
             <div className="mt-8 grid gap-4 md:grid-cols-3">
-              <TestimonialCard
-                quote="We built a shortlist in minutes and the pricing estimates were close to our budget."
+              <QuoteCard
+                quote="We built a shortlist in minutes and the pricing estimates stayed close to our budget."
                 name="Brand lead"
                 meta="D2C skincare • first campaign"
               />
-              <TestimonialCard
-                quote="The matching suggestions helped us find creators we’d never discover manually."
+              <QuoteCard
+                quote="The matching suggestions helped us find creators we would not discover manually."
                 name="Agency manager"
-                meta="UGC & influencer programs"
+                meta="UGC and influencer programs"
               />
-              <TestimonialCard
+              <QuoteCard
                 quote="Signing up was easy and the onboarding felt like a polished SaaS product."
                 name="Creator"
                 meta="Micro-influencer • lifestyle"
@@ -352,112 +363,79 @@ export default function Home() {
           </Container>
         </section>
 
-        <section className="py-16 bg-gray-50">
+        <section className="bg-gray-50 py-16">
           <Container>
             <SectionTitle
               title="FAQ"
-              subtitle="Clear answers help conversion—these can evolve as your product matures."
+              subtitle="A few practical questions users will ask before trusting the platform."
             />
             <div className="mt-8 grid gap-4 lg:grid-cols-2">
               <FaqItem
                 q="Do you use paid APIs or external AI services?"
-                a="No. The architecture is designed for offline models and local processing. You can train models with your own datasets and serve predictions from FastAPI."
+                a="No. The core setup is designed around local models and local processing, so you can iterate without paid AI APIs."
               />
               <FaqItem
                 q="How does matching work?"
-                a="Stage 1 filters by rules (niche, budget, engagement). Stage 2 ranks creators using offline ML signals like content similarity, engagement, and price-fit."
+                a="The system can first filter by rules such as niche, budget, and engagement, then rank creators with local ML signals like fit and pricing."
               />
               <FaqItem
                 q="Can I start with demo data?"
-                a="Yes. The UI is ready for real data later. You can start with placeholders and gradually connect the database, scraper, and model training pipeline."
+                a="Yes. You can start with realistic demo data, then connect real databases, training inputs, and automation later."
               />
               <FaqItem
                 q="What security features are included?"
-                a="Email verification, OAuth login options, rate limits on auth endpoints, and secure API headers. OAuth uses a one-time code exchange to avoid token leakage in URLs."
+                a="Email verification, OAuth options, rate limiting on auth endpoints, and safer API defaults are already part of the foundation."
               />
             </div>
           </Container>
         </section>
 
-        <section className="py-16 bg-gray-50" id="security">
+        <section className="py-16" id="security">
           <Container>
-            <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
-              <div>
-                <SectionTitle
-                  title="Security & trust built-in"
-                  subtitle="Designed like a modern SaaS: verified accounts, safer OAuth flows, and API hardening."
-                />
-                <ul className="mt-6 space-y-3 text-sm text-gray-700">
-                  <li>• Email verification before password login</li>
-                  <li>• OAuth login (Google/Facebook/Apple) with one-time code exchange</li>
-                  <li>• Security headers + strict API CSP + rate limiting</li>
-                  <li>• Offline ML models (no external AI services)</li>
-                </ul>
-                <div className="mt-8 flex gap-3">
-                  <PrimaryLinkButton href="/signup">Create an account</PrimaryLinkButton>
-                  <SecondaryLinkButton href="/login">Log in</SecondaryLinkButton>
-                </div>
-              </div>
-              <div className="rounded-3xl border border-gray-200 bg-white p-6 shadow-sm">
-                <div className="text-sm font-semibold">What you get</div>
-                <div className="mt-4 grid gap-3 sm:grid-cols-2">
-                  {[
-                    { k: 'Creator analytics', v: 'Engagement, pricing, risk' },
-                    { k: 'Niche detection', v: 'TF‑IDF + KMeans clustering' },
-                    { k: 'Price prediction', v: 'RandomForest baseline model' },
-                    { k: 'Fake detection', v: 'IsolationForest anomaly score' },
-                  ].map((item) => (
-                    <div key={item.k} className="rounded-2xl border border-gray-200 bg-gray-50 p-4">
-                      <div className="text-sm font-semibold text-gray-900">{item.k}</div>
-                      <div className="mt-1 text-xs text-gray-600">{item.v}</div>
-                    </div>
-                  ))}
-                </div>
-                <div className="mt-6 text-xs text-gray-500">
-                  Want the legacy animated homepage back? It’s available at <Link className="underline" href="/legacy-home">/legacy-home</Link>.
-                </div>
-              </div>
-            </div>
-          </Container>
-        </section>
-
-        <section className="py-16">
-          <Container>
-            <div className="rounded-[2rem] border border-gray-200 bg-[radial-gradient(circle_at_10%_10%,#DBEAFE_0%,transparent_45%),radial-gradient(circle_at_85%_20%,#EDE9FE_0%,transparent_45%)] p-10 shadow-sm">
+            <div className="rounded-[2rem] border border-gray-200 bg-[radial-gradient(circle_at_10%_10%,#DBEAFE_0%,transparent_45%),radial-gradient(circle_at_85%_20%,#EDE9FE_0%,transparent_45%)] p-6 shadow-sm sm:p-10">
               <div className="grid gap-8 lg:grid-cols-2 lg:items-center">
                 <div>
                   <div className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/70 px-3 py-1 text-xs font-medium text-gray-700">
                     <span className="text-blue-700">●</span> Ready to launch your first campaign?
                   </div>
                   <div className="mt-5 text-3xl font-semibold tracking-tight text-gray-900 sm:text-4xl">
-                    Create an account and start matching in minutes
+                    Create an account and start matching in minutes.
                   </div>
-                  <div className="mt-3 text-sm text-gray-600">
-                    Start free. Add OAuth later. Connect real data when you’re ready.
+                  <div className="mt-3 text-sm leading-6 text-gray-600">
+                    Start free, add integrations later, and keep the product lightweight while you grow.
                   </div>
                   <div className="mt-7 flex flex-col gap-3 sm:flex-row">
                     <PrimaryLinkButton href="/signup">Get started</PrimaryLinkButton>
                     <SecondaryLinkButton href="/creators">Browse creators</SecondaryLinkButton>
                   </div>
                 </div>
+
                 <div className="grid gap-4 sm:grid-cols-2">
                   {[
-                    { t: 'Offline AI', d: 'No external AI services.' },
-                    { t: 'Secure auth', d: 'Verify email before login.' },
-                    { t: 'Fast matching', d: 'Rules + ML ranking.' },
-                    { t: 'Scalable', d: 'Queue + datasets + retraining.' },
-                  ].map((x) => (
-                    <div key={x.t} className="rounded-2xl border border-gray-200 bg-white/80 p-5 shadow-sm backdrop-blur">
+                    { title: 'Offline AI', description: 'No external AI services required.' },
+                    { title: 'Secure auth', description: 'Verified accounts and safer login flow.' },
+                    { title: 'Fast matching', description: 'Rules plus ML ranking for speed.' },
+                    { title: 'Scalable base', description: 'Ready for datasets and retraining later.' },
+                  ].map((item) => (
+                    <div key={item.title} className="rounded-2xl border border-gray-200 bg-white/80 p-5 shadow-sm backdrop-blur">
                       <div className="flex items-center gap-2 text-sm font-semibold text-gray-900">
                         <span className="inline-flex h-9 w-9 items-center justify-center rounded-xl bg-blue-600/10">
                           <IconBolt />
                         </span>
-                        {x.t}
+                        {item.title}
                       </div>
-                      <div className="mt-2 text-sm text-gray-600">{x.d}</div>
+                      <div className="mt-2 text-sm leading-6 text-gray-600">{item.description}</div>
                     </div>
                   ))}
                 </div>
+              </div>
+
+              <div className="mt-6 text-xs text-gray-500">
+                Want the older animated homepage back? It is still available at{' '}
+                <Link className="underline" href="/legacy-home">
+                  /legacy-home
+                </Link>
+                .
               </div>
             </div>
           </Container>
