@@ -4,9 +4,16 @@ Simple Express backend for the frontend.
 
 ## Endpoints
 
-- `GET /health` → `{ ok: true }`
-- `POST /api/waitlist` → saves waitlist submissions (webhook or local CSV)
-- `POST /api/pricing-suggestion` → returns pricing suggestion JSON
+- `GET /health` -> `{ ok: true }`
+- `POST /api/waitlist` -> saves waitlist submissions (webhook or local CSV)
+- `POST /api/pricing-suggestion` -> returns pricing suggestion JSON
+- `POST /api/influencer` -> submit Instagram username + manual stats (no scraping)
+- `GET /api/influencer/verify-code?username=...` -> generate a verification code
+- `POST /api/influencer/verify` -> mark influencer as verified
+- `POST /api/ai/price` -> local AI pricing prediction without a separate Python service
+- `POST /api/ai/analyze` -> local creator analysis with pricing, niche, and fake-risk estimates
+- `POST /api/ai/match` -> local creator matching for a provided list of creators
+- `GET /api/ai/health` -> confirms the backend-local AI mode is active
 
 ## Environment
 
@@ -15,9 +22,14 @@ Create `backend/.env` (or set env vars in your shell):
 ```bash
 PORT=4001
 CORS_ORIGIN=http://localhost:3000
+MONGODB_URI=mongodb://localhost:27017/collabkar
 WAITLIST_FILE_PATH=C:\path\to\waitlist-emails.csv
 WAITLIST_WEBHOOK_URL=https://your-pc-bridge-url.example.com/waitlist
 ```
+
+For a free cloud MVP, use a MongoDB Atlas `M0` connection string in `MONGODB_URI`.
+When `MONGODB_URI` is set and MongoDB connects successfully, both influencer data
+and auth users are stored in MongoDB instead of the local JSON auth file.
 
 ## Run
 
@@ -25,4 +37,26 @@ WAITLIST_WEBHOOK_URL=https://your-pc-bridge-url.example.com/waitlist
 cd backend
 npm install
 npm run dev
+```
+
+## AI Folder Compatibility
+
+The checked-in `AI/influencer_analytics` training code still depends on packages like
+`pandas` and `scikit-learn`, which may not install yet on Python 3.14.
+
+For local development, the backend now uses a built-in heuristic AI layer instead of
+requiring a separate FastAPI service.
+
+If you want a Python-side runtime that still works on Python 3.14, you can use:
+
+```bash
+python AI/influencer_analytics/runtime.py health
+```
+
+## Run with MongoDB (Docker)
+
+From the repo root:
+
+```bash
+docker compose up --build
 ```
