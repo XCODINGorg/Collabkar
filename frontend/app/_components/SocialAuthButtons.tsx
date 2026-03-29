@@ -81,7 +81,7 @@ function Button({
 export function SocialAuthButtons({ redirect = '/dashboard' }: { redirect?: string }) {
   const encoded = encodeURIComponent(redirect);
   return (
-    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
+    <div className="grid grid-cols-1 gap-2">
       <Button
         variant="facebook"
         href={`/api/auth/oauth/facebook/start?redirect=${encoded}`}

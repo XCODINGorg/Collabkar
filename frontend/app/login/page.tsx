@@ -4,9 +4,9 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { login } from '../../lib/authClient';
-import { AuthShell } from '../_components/AuthShell';
+import { BrandLogo } from '../_components/BrandLogo';
 import { SocialAuthButtons } from '../_components/SocialAuthButtons';
-import { Card, Divider, ErrorBanner, Label, PrimaryButton, TextInput } from '../_components/ui';
+import { Card, Divider, ErrorBanner, Label, PrimaryButton, SubtleText, TextInput, Title } from '../_components/ui';
 
 export default function LoginPage() {
   const router = useRouter();
@@ -30,13 +30,16 @@ export default function LoginPage() {
   };
 
   return (
-    <AuthShell
-      title="Log in"
-      subtitle="Use your email and password, or continue with a provider."
-      asideTitle="Welcome back to a cleaner workflow."
-      asideText="Sign in to manage creator discovery, pricing signals, and campaign progress from one place."
-    >
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
       <Card>
+        <div className="mb-6 space-y-3">
+          <BrandLogo imageClassName="h-11 w-auto" priority />
+          <div>
+            <Title>Log in</Title>
+            <SubtleText>Use your email and password, or continue with a provider.</SubtleText>
+          </div>
+        </div>
+
         <div className="mb-6">
           <SocialAuthButtons redirect="/dashboard" />
         </div>
@@ -83,6 +86,6 @@ export default function LoginPage() {
           No account? <Link className="text-blue-700 underline" href="/signup">Sign up</Link>
         </div>
       </Card>
-    </AuthShell>
+    </div>
   );
 }
