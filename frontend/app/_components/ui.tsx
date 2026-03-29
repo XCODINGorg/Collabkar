@@ -3,7 +3,7 @@
 import type { ReactNode } from 'react';
 
 export function Card({ children }: { children: ReactNode }) {
-  return <div className="w-full max-w-md rounded-2xl border border-gray-200 bg-white/80 shadow-sm backdrop-blur p-6">{children}</div>;
+  return <div className="w-full rounded-[1.5rem] border border-gray-200 bg-white/88 p-6 shadow-sm backdrop-blur sm:p-7">{children}</div>;
 }
 
 export function Title({ children }: { children: ReactNode }) {
@@ -103,4 +103,3 @@ export function ErrorBanner({ message }: { message: string }) {
     </div>
   );
 }
-

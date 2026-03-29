@@ -1,10 +1,8 @@
 'use client';
 
-import { Suspense } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 import { setToken } from '../../../lib/authClient';
-import { apiUrl } from '../../../lib/api';
 import { Card, SubtleText, Title } from '../../_components/ui';
 
 function sanitizeRedirect(value: string | null) {
@@ -25,6 +23,7 @@ function AuthCallbackContent() {
     const token = search.get('token');
     const code = search.get('code');
     const redirectTo = sanitizeRedirect(search.get('redirect'));
+
     if (token) {
       setToken(token);
       router.replace(redirectTo);
@@ -38,7 +37,7 @@ function AuthCallbackContent() {
 
     const run = async () => {
       try {
-        const response = await fetch(apiUrl('/api/auth/oauth/exchange'), {
+        const response = await fetch('/api/auth/oauth/exchange', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ code }),
@@ -60,7 +59,7 @@ function AuthCallbackContent() {
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
       <Card>
         <Title>Signing you in</Title>
-        <SubtleText>{error ? error : 'Please wait…'}</SubtleText>
+        <SubtleText>{error ? error : 'Please wait...'}</SubtleText>
       </Card>
     </div>
   );

@@ -5,9 +5,9 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { signup } from '../../lib/authClient';
 import type { AuthUser } from '../../lib/authClient';
-import { BrandLogo } from '../_components/BrandLogo';
+import { AuthShell } from '../_components/AuthShell';
 import { SocialAuthButtons } from '../_components/SocialAuthButtons';
-import { Card, Divider, ErrorBanner, Label, PrimaryButton, Select, SubtleText, TextInput, Title } from '../_components/ui';
+import { Card, Divider, ErrorBanner, Label, PrimaryButton, Select, SubtleText, TextInput } from '../_components/ui';
 
 type Role = 'creator' | 'brand';
 
@@ -101,14 +101,13 @@ export default function SignupPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 to-white p-6">
+    <AuthShell
+      title="Create your account"
+      subtitle="Set up your role, profile basics, and social handles in one flow."
+      asideTitle="Launch faster with a stronger first profile."
+      asideText="Creator and brand onboarding should feel lightweight. Start with the essentials and expand the rest later."
+    >
       <Card>
-        <div className="mb-6">
-          <BrandLogo imageClassName="h-11 w-auto" priority />
-          <Title>Create your startup-ready account</Title>
-          <SubtleText>Set up your role, profile basics, and social handles in one flow.</SubtleText>
-        </div>
-
         <div className="mb-6">
           <SocialAuthButtons redirect="/dashboard" />
         </div>
@@ -120,10 +119,7 @@ export default function SignupPage() {
         <form onSubmit={onSubmit} className="space-y-4">
           <div>
             <Label>Account type</Label>
-            <Select
-              value={form.role}
-              onChange={(e) => update('role', e.target.value as Role)}
-            >
+            <Select value={form.role} onChange={(e) => update('role', e.target.value as Role)}>
               <option value="creator">Creator</option>
               <option value="brand">Brand</option>
             </Select>
@@ -246,7 +242,11 @@ export default function SignupPage() {
               rows={4}
               value={form.bio}
               onChange={(e) => update('bio', e.target.value)}
-              placeholder={form.role === 'brand' ? 'Tell creators what your brand does and what campaigns you run.' : 'Describe your audience, content style, and what brands should know.'}
+              placeholder={
+                form.role === 'brand'
+                  ? 'Tell creators what your brand does and what campaigns you run.'
+                  : 'Describe your audience, content style, and what brands should know.'
+              }
             />
           </div>
 
@@ -275,6 +275,6 @@ export default function SignupPage() {
           Already have an account? <Link className="text-blue-700 underline" href="/login">Log in</Link>
         </div>
       </Card>
-    </div>
+    </AuthShell>
   );
 }

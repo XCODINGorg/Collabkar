@@ -1,7 +1,7 @@
 'use client';
 
-import { apiUrl } from '../../lib/api';
 import type { ReactNode } from 'react';
+import Link from 'next/link';
 
 function IconFacebook() {
   return (
@@ -61,42 +61,42 @@ function Button({
   icon: ReactNode;
 }) {
   const base =
-    'relative w-full rounded-lg px-4 py-2.5 font-medium transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2';
+    'relative flex w-full items-center justify-center rounded-2xl px-4 py-3 text-sm font-medium transition focus:outline-none focus-visible:ring-2 focus-visible:ring-gray-900 focus-visible:ring-offset-2';
 
   const classes =
     variant === 'facebook'
-      ? `${base} bg-[#1877F2] hover:bg-[#166fe5] text-white`
+      ? `${base} bg-[#1877F2] text-white hover:bg-[#166fe5]`
       : variant === 'apple'
-        ? `${base} bg-black hover:bg-gray-900 text-white`
-        : `${base} bg-white hover:bg-gray-50 text-gray-900 border border-gray-200`;
+        ? `${base} bg-black text-white hover:bg-gray-900`
+        : `${base} border border-gray-200 bg-white text-gray-900 hover:bg-gray-50`;
 
   return (
-    <a href={href} className={classes}>
+    <Link href={href} className={classes}>
       <span className="absolute left-4 top-1/2 -translate-y-1/2">{icon}</span>
       <span className="block text-center">{label}</span>
-    </a>
+    </Link>
   );
 }
 
 export function SocialAuthButtons({ redirect = '/dashboard' }: { redirect?: string }) {
   const encoded = encodeURIComponent(redirect);
   return (
-    <div className="grid grid-cols-1 gap-2">
+    <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
       <Button
         variant="facebook"
-        href={apiUrl(`/api/auth/oauth/facebook/start?redirect=${encoded}`)}
+        href={`/api/auth/oauth/facebook/start?redirect=${encoded}`}
         label="Continue with Facebook"
         icon={<IconFacebook />}
       />
       <Button
         variant="google"
-        href={apiUrl(`/api/auth/oauth/google/start?redirect=${encoded}`)}
+        href={`/api/auth/oauth/google/start?redirect=${encoded}`}
         label="Continue with Google"
         icon={<IconGoogle />}
       />
       <Button
         variant="apple"
-        href={apiUrl(`/api/auth/oauth/apple/start?redirect=${encoded}`)}
+        href={`/api/auth/oauth/apple/start?redirect=${encoded}`}
         label="Continue with Apple"
         icon={<IconApple />}
       />
